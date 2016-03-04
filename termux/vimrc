@@ -8,9 +8,15 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'fatih/vim-go'
-Plugin 'kien/ctrlp.vim'
+" Plugin 'kien/ctrlp.vim'
 Plugin 'klen/python-mode'
+" Plugin 'majutsushi/tagbar'
+Plugin 'nsf/gocode', {'rtp': 'vim/'}
 Plugin 'sandeepcr529/Buffet.vim'
+Plugin 'scrooloose/nerdtree'
+Plugin 'tpope/vim-surround'
+Plugin 'jiangmiao/auto-pairs'
+Plugin 'Xuyuanp/nerdtree-git-plugin'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -25,22 +31,68 @@ let g:go_highlight_build_constraints = 1
 let g:go_fmt_command = "goimports"
 
 " Settings for ctrlp
-let g:ctrlp_map_height = 30
-set wildignore+=*.pyc
-set wildignore+=*_build/*
-set wildignore+=*/coverage/*
+" let g:ctrlp_map_height = 30
+" set wildignore+=*.pyc
+" set wildignore+=*_build/*
+" set wildignore+=*/coverage/*
 
 " Settings for Buffet
 map <C-l> :Bufferlist<CR>
 
+" Settings for NERDtree and NERDtree-git-plugin
+map <C-p> :NERDTreeToggle<CR>
+
 " Vim options
+set showmode
+set showmatch
+set ruler
+set showcmd
+set incsearch
 
 " line numbers
 set number
+set relativenumber
 set tw=79
 set nowrap
 set fo-=t
 set colorcolumn=80
-highlight ColorColumn ctermbg=gray
+highlight ColorColumn ctermbg=darkgray
 
 set background=dark
+
+" tagbar config options
+" nmap <C-t> :TagbarToggle<CR>
+let g:tagbar_ctags_bin = '/data/data/com.termux/files/home/workspace/bin/gotags'
+let g:tagbar_width = 50
+let g:tagbar_indent = 1
+let g:tagbar_autoshowtags = 1
+let g:tagbar_autofocus = 1
+let g:tagbar_show_visibility = 0
+" Gotags support
+let g:tagbar_type_go = {
+    \ 'ctagstype' : 'go',
+    \ 'kinds'     : [
+        \ 'p:package',
+        \ 'i:imports:1',
+        \ 'c:constants',
+        \ 'v:variables',
+        \ 't:types',
+        \ 'n:interfaces',
+        \ 'w:fields',
+        \ 'e:embedded',
+        \ 'm:methods',
+        \ 'r:constructor',
+        \ 'f:functions'
+    \ ],
+    \ 'sro' : '.',
+    \ 'kind2scope' : {
+        \ 't' : 'ctype',
+        \ 'n' : 'ntype'
+    \ },
+    \ 'scope2kind' : {
+        \ 'ctype' : 't',
+        \ 'ntype' : 'n'
+    \ },
+    \ 'ctagsbin'  : 'gotags',
+    \ 'ctagsargs' : '-sort -silent'
+\ }
